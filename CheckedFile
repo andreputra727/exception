@@ -1,0 +1,51 @@
+package exception;
+
+/*
+* Class InvalidNameException
+*
+* TUJUAN DIBUAT:
+* 1. Membuat custom exception khusus untuk menangani kesalahan input nama yang tidak valid
+* 2. Menyediakan exception yang spesifik untuk kasus validasi nama mahasiswa
+* 3. Memberikan pesan error yang lebih deskriptif dan mudah dipahami
+* 4. Memisahkan logika penanganan error nama dari exception umum lainnya
+* 5. Meningkatkan readability dan maintainability kode dengan exception yang semantic
+* 6. Memungkinkan penanganan error yang lebih granular dan spesifik
+*
+* KEGUNAAN DALAM APLIKASI:
+* - Dilempar ketika nama mahasiswa mengandung karakter yang tidak diizinkan (tanda baca)
+* - Membantu dalam proses validasi input sebelum data disimpan atau diproses
+* - Memberikan feedback yang jelas kepada user tentang kesalahan format nama
+*
+* TIPE EXCEPTION YANG DIGUNAKAN:
+*
+* 1. CHECKED EXCEPTION:
+* - Class ini extends dari "Exception" (bukan RuntimeException)
+* - Merupakan Checked Exception yang WAJIB ditangani oleh compiler
+* - Harus ditangani dengan try-catch atau dideklarasikan dengan throws
+*
+* 2. KARAKTERISTIK CHECKED EXCEPTION:
+* - Dicheck pada compile time
+* - Program tidak akan compile jika tidak ditangani
+* - Biasanya untuk kondisi yang bisa diprediksi dan dapat dipulihkan
+* - Memaksa programmer untuk menangani kemungkinan error
+*
+* 3. CONSTRUCTOR:
+* - Menerima parameter String message untuk pesan error
+* - Memanggil super(message) untuk meneruskan pesan ke parent class Exception
+* - Memungkinkan pesan error yang customizable sesuai konteks
+*
+* CONTOH PENGGUNAAN:
+* try {
+* if (nama.contains("@")) {
+* throw new InvalidNameException("Nama tidak boleh mengandung simbol @");
+* }
+* } catch (InvalidNameException e) {
+* System.out.println("Error: " + e.getMessage());
+* }
+*/
+
+public class InvalidNameException extends Exception {
+public InvalidNameException(String message){
+super(message);
+}
+}
