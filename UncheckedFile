@@ -1,0 +1,90 @@
+package exception;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
+/*
+* Program StudentGradeChecker
+*
+* TUJUAN PROGRAM:
+* Program ini dibuat untuk memvalidasi dan memproses data mahasiswa (nama dan nilai)
+* dengan penanganan error yang komprehensif. Program ini mendemonstrasikan penggunaan
+* exception handling dalam Java untuk menangani berbagai kemungkinan kesalahan input.
+*
+* Fungsi utama:
+* 1. Menerima input nama mahasiswa dan memvalidasi bahwa nama tidak mengandung tanda baca
+* 2. Menerima input nilai (0-100) dan memvalidasi format serta rentang nilai
+* 3. Menentukan status kelulusan berdasarkan nilai (≥60 = LULUS)
+* 4. Menangani berbagai jenis kesalahan input dengan pesan error yang informatif
+*
+* TIPE EXCEPTION YANG DIGUNAKAN:
+*
+* 1. Custom Exceptions (Buatan Sendiri):
+* - InvalidNameException: Exception khusus yang dilempar ketika nama mahasiswa
+* mengandung tanda baca
+* - UnrealisticGradeException: Exception khusus yang dilempar ketika nilai terlalu
+* rendah (<20), dianggap tidak realistis
+*
+* 2. Built-in Java Exceptions:
+* - NumberFormatException: Exception bawaan Java yang ditangkap ketika input nilai
+* bukan berupa angka yang valid (misalnya user memasukkan huruf atau karakter lain)
+*
+* 3. Generic Exception Handling:
+* - Exception: Catch-all untuk menangani error tak terduga lainnya yang mungkin terjadi
+*
+* ALUR PENANGANAN ERROR:
+* 1. Validasi nama → jika ada tanda baca → InvalidNameException
+* 2. Parsing nilai → jika bukan angka → NumberFormatException
+* 3. Validasi rentang nilai → jika di luar 0-100 → pesan error langsung
+* 4. Validasi nilai realistis → jika <20 → UnrealisticGradeException
+* 5. Catch umum → untuk error tak terduga lainnya
+*/
+
+public class StudentGradeChecker {
+
+private static boolean containsPunctuation (String input){
+
+return Pattern.compile("\\p{Punct}").matcher(input).find();
+}
+public static void main(String[] args) {
+try (Scanner input = new Scanner (System.in)){
+System.out.print("Masukkan nama mahasiswa: ");
+String nama = input.nextLine();
+
+//lempar jika memakai tanda baca
+if (containsPunctuation(nama)){
+throw new InvalidNameException("Nama tidak boleh mengandung tanda baca");
+}
+System.out.print("Massukan nilai (0-100): ");
+String nilaiStr = input.nextLine();
+
+int nilai;
+
+try {
+nilai = Integer.parseInt(nilaiStr); //menghasilkan number format exception
+
+} catch (NumberFormatException e){
+System.out.println("Error: Nilai harus berupa angka bulat");
+return;
+}
+
+if (nilai < 0 || nilai> 100){
+System.out.println("Error: Nilai harus antara 0 hingga 100");
+return;
+}
+
+if (nilai < 20){
+throw new UnrealisticGradeException ("Nilai terlalu rendah");
+}
+
+System.out.println("\nNama : "+ nama);
+System.out.println("Nilai : "+ nilai);
+System.out.println("Status: "+ (nilai >= 60? "LULUS" : "TIDAK LULUS"));
+
+}catch (InvalidNameException e){
+System.out.println("Kesalahan input: "+ e.getMessage());
+} catch (Exception e){
+System.out.println("Terjadi error tak terduga: " + e.getMessage());
+}
+
+}
+}
