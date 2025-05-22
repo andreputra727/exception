@@ -1,0 +1,36 @@
+package exception;
+
+/**
+* Custom exception class untuk menangani kasus nilai yang tidak realistis
+* Exception ini akan dilempar ketika nilai yang diinput berada di luar
+* rentang yang wajar atau logis (misalnya nilai negatif atau lebih dari 100)
+*/
+public class UnrealisticGradeException extends Exception{
+
+/**
+* Constructor untuk membuat instance UnrealisticGradeException
+* dengan pesan error yang spesifik
+*
+* @param message Pesan error yang akan ditampilkan ketika exception terjadi
+*/
+public UnrealisticGradeException (String message){
+super(message); // Memanggil constructor parent class (Exception) dengan parameter message
+}
+}
+
+/*
+TUJUAN KODE:
+Kode ini dibuat untuk menangani situasi di mana nilai (grade) yang diinput
+tidak realistis atau berada di luar batas normal. Misalnya:
+- Nilai negatif (< 0)
+- Nilai lebih dari maksimum yang diizinkan (> 100)
+- Nilai dalam format yang tidak valid
+
+TIPE EXCEPTION:
+- Tipe: Checked Exception
+- Alasan: Class ini extends dari Exception (bukan RuntimeException)
+- Karakteristik: Harus ditangani dengan try-catch atau dideklarasikan
+dengan throws di method signature
+- Kegunaan: Memaksa programmer untuk menangani kasus nilai tidak realistis
+secara eksplisit dalam kode
+*/
